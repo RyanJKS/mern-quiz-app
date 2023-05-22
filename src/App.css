@@ -1,36 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Dancing+Script:wght@400;500;600;700&display=swap');
 @import '~mdb-ui-kit/css/mdb.min.css';
 
-
-/* .App {
-  background-color: #282c34;
-  min-height: 100vh;
-  min-width: 100vw;
-  font-size: calc(10px + 2vmin);
-  color: white;
-} */
-
 .background-container{
-  background-color: #282c34;
-  color: white;
-}
-.container {
-  display: flex;
-  min-width: 100vw;
-  flex-direction: row-reverse;
-  font-size: calc(10px + 2vmin);
+  background-color:#282c34;
+  color:white ;
+  min-height: 100vh;
 }
 
 .page-title{
   text-align: center;
-  padding: 1rem;
+  padding-top: 1rem;
   font-family: 'Cinzel', serif;
   font-size: 4vw;
 }
 
+.content-container {
+  display: flex;
+  min-width: 100vw;
+  flex-direction: row-reverse;
+}
+
 .fixed-content {
   width: 25%;
-  padding: 20px;
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
   position: sticky;
   top: 0;
 }
@@ -46,12 +40,12 @@
 }
 
 @media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-  }
 
   .page-title{
     font-size: 10vw;
+  }
+  .content-container {
+    flex-direction: column;
   }
 
   .fixed-content {

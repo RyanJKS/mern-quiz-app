@@ -1,45 +1,30 @@
 import React from "react";
 import "./App.css";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Stack from "@mui/material/Stack";
-import LeadershipBoard from "./components/LeadershipBoard";
-import QuizCard from "./components/QuizCard";
-import OverviewDialog from "./components/OverviewDialog";
-
 import "bootstrap/dist/css/bootstrap.min.css";
+import Grid from "@mui/material/Grid";
+import LeadershipBoard from "./components/LeadershipBoard";
+import OverviewDialog from "./components/OverviewDialog";
+import Card from "@mui/material/Card";
+
+import IntroPage from "./pages/IntroPage";
+import AccessForm from "./components/AccessForm";
+import Board from "./components/Board";
 
 function App() {
   return (
     <div className="background-container">
-      <div className="d-flex flex-column align-items-center justify-content-center text-primary">
-        <h1 className="page-title">Quiz Game</h1>
+      <h1 className="page-title text-primary">Quiz Game</h1>
+      <div className="p-3 d-flex flex-column justify-content-center align-items-center text-dark">
         <OverviewDialog />
       </div>
-      <div className="container">
-        <div className="fixed-content">
-          <LeadershipBoard />
+
+      <div className="content-container">
+        <div className="fixed-content bg-danger">
+          {/* <LeadershipBoard /> */}
+          <Board />
         </div>
         <div className="scrollable-content">
-          <div className="scrollable-inner-content">
-            <Stack
-              direction="column"
-              justifyContent="center"
-              alignItems="center"
-              spacing={3}
-            >
-              <QuizCard />
-              <QuizCard />
-              <QuizCard />
-              <QuizCard />
-              <QuizCard />
-              <QuizCard />
-              <QuizCard />
-              <QuizCard />
-              <QuizCard />
-              <QuizCard />
-            </Stack>
-          </div>
+          <div className="scrollable-inner-content"></div>
         </div>
       </div>
     </div>

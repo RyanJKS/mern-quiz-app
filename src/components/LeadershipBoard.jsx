@@ -3,7 +3,7 @@ import { MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
 
 export default function LeadershipBoard() {
   return (
-    <MDBTable className="bg-secondary text-white rounded">
+    <MDBTable className="table bg-secondary text-white rounded w-75">
       <MDBTableHead>
         <tr>
           <th scope="col">#</th>
@@ -16,13 +16,13 @@ export default function LeadershipBoard() {
         <tr>
           <th scope="row">1</th>
           <td>Mark</td>
-          <td className="d-flex justify-content-center">Mark</td>
+          <td>Mark</td>
           <td>Mark</td>
         </tr>
         <tr>
           <th scope="row">2</th>
           <td>Jacob</td>
-          <td className="d-flex justify-content-center">Jacob</td>
+          <td>Jacob</td>
           <td>Jacob</td>
         </tr>
       </MDBTableBody>

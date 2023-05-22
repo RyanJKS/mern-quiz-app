@@ -2,19 +2,18 @@ import * as React from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
+import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
 export default function QuizCard() {
+  const choiceBtnStyles = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  };
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardMedia
-        component="img"
-        alt="green iguana"
-        height="140"
-        image="https://e3.365dm.com/23/04/2048x1152/skynews-ai-art-generator-tim-flach_6121312.jpg"
-      />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           Lizard
@@ -25,8 +24,28 @@ export default function QuizCard() {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
+        <Grid container spacing={2}>
+          <Grid item xs={6} lg={6} style={choiceBtnStyles}>
+            <Button variant="contained" size="small">
+              Share 1
+            </Button>
+          </Grid>
+          <Grid item xs={6} lg={6} style={choiceBtnStyles}>
+            <Button variant="contained" size="small">
+              Share 2
+            </Button>
+          </Grid>
+          <Grid item xs={6} lg={6} style={choiceBtnStyles}>
+            <Button variant="contained" size="small">
+              Share 3
+            </Button>
+          </Grid>
+          <Grid item xs={6} lg={6} style={choiceBtnStyles}>
+            <Button variant="contained" size="small">
+              Share 4
+            </Button>
+          </Grid>
+        </Grid>
       </CardActions>
     </Card>
   );
