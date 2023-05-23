@@ -9,6 +9,7 @@ import {
   MDBBtn,
   MDBInput,
 } from "mdb-react-ui-kit";
+import "./AccessForm.css";
 
 function AccessForm() {
   const [justifyActive, setJustifyActive] = useState("tab1");
@@ -23,7 +24,6 @@ function AccessForm() {
   const signInEmail = useRef(null);
   const signInPassword = useRef(null);
   const signUpUsername = useRef(null);
-  const signUpEmail = useRef(null);
   const signUpPassword = useRef(null);
 
   const signIn = () => {
@@ -40,6 +40,7 @@ function AccessForm() {
         justify
         className="mb-3 d-flex flex-row justify-content-between w-100"
       >
+        {/*SELECTION TAB */}
         <MDBTabsItem>
           <MDBTabsLink
             onClick={() => handleJustifyClick("tab1")}
@@ -93,12 +94,7 @@ function AccessForm() {
             type="text"
             ref={signUpUsername}
           />
-          <MDBInput
-            wrapperClass="mb-4"
-            label="Email"
-            type="email"
-            ref={signUpEmail}
-          />
+
           <MDBInput
             wrapperClass="mb-4"
             label="Password"
@@ -109,6 +105,12 @@ function AccessForm() {
           <MDBBtn className="mb-4 w-100" onClick={signUp}>
             Sign up
           </MDBBtn>
+          <p className="text-center">
+            Already a member?{" "}
+            <a href="#!" onClick={() => setJustifyActive("tab1")}>
+              Sign In
+            </a>
+          </p>
         </MDBTabsPane>
       </MDBTabsContent>
     </MDBContainer>

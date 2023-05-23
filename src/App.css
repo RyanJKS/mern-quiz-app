@@ -1,64 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Dancing+Script:wght@400;500;600;700&display=swap');
 @import '~mdb-ui-kit/css/mdb.min.css';
 
-.background-container{
-  background-color:#282c34;
-  color:white ;
-  min-height: 100vh;
-}
 
-.page-title{
+.title{
   text-align: center;
-  padding-top: 1rem;
   font-family: 'Cinzel', serif;
   font-size: 4vw;
 }
 
-.content-container {
-  display: flex;
-  min-width: 100vw;
-  flex-direction: row-reverse;
-}
-
-.fixed-content {
-  width: 25%;
-  padding-top: 20px;
-  display: flex;
-  justify-content: center;
-  position: sticky;
-  top: 0;
-}
-
-.scrollable-content {
-  width: 75%;
-  overflow-y: hidden;
-  padding: 20px;
-}
-
-.scrollable-inner-content {
-  min-height: 100vh; /* Ensures that the scrollable area takes up the full viewport height */
-}
-
 @media (max-width: 768px) {
-
-  .page-title{
+  .title{
     font-size: 10vw;
   }
-  .content-container {
-    flex-direction: column;
-  }
-
-  .fixed-content {
-    width: 100%;
-    position: relative;
-  }
-
-  .scrollable-content {
-    width: 100%;
-    overflow-y: initial; /* Disables vertical scrolling on smaller screens */
-  }
-
-  .scrollable-inner-content {
-    min-height: initial; /* Resets the minimum height on smaller screens */
-  }
+  
 }

@@ -5,13 +5,17 @@ import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { useState } from "react";
 
 export default function QuizCard() {
+  const [choice, setChoice] = useState("contained");
+
   const choiceBtnStyles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
   };
+
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardContent>
@@ -26,22 +30,22 @@ export default function QuizCard() {
       <CardActions>
         <Grid container spacing={2}>
           <Grid item xs={6} lg={6} style={choiceBtnStyles}>
-            <Button variant="contained" size="small">
+            <Button variant={choice} size="small">
               Share 1
             </Button>
           </Grid>
           <Grid item xs={6} lg={6} style={choiceBtnStyles}>
-            <Button variant="contained" size="small">
+            <Button variant={choice} size="small">
               Share 2
             </Button>
           </Grid>
           <Grid item xs={6} lg={6} style={choiceBtnStyles}>
-            <Button variant="contained" size="small">
+            <Button variant={choice} size="small">
               Share 3
             </Button>
           </Grid>
           <Grid item xs={6} lg={6} style={choiceBtnStyles}>
-            <Button variant="contained" size="small">
+            <Button variant={choice} size="small">
               Share 4
             </Button>
           </Grid>

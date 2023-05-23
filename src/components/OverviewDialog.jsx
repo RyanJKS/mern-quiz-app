@@ -15,9 +15,15 @@ function OverviewDialog() {
         Overview
       </Button>
       <Collapse in={open}>
-        <div id="example-collapse-text d-flex align-items-center justify-content-center">
+        <div id="example-collapse-text w-80">
           <Card body>
             Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+            terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer
+            labore wes anderson cred nesciunt sapiente ea proident. Anim
+            pariatur cliche reprehenderit, enim eiusmod high life accusamus
+            terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer
+            labore wes anderson cred nesciunt sapiente ea proident. Anim
+            pariatur cliche reprehenderit, enim eiusmod high life accusamus
             terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer
             labore wes anderson cred nesciunt sapiente ea proident.
           </Card>
