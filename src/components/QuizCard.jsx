@@ -7,8 +7,23 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 
-export default function QuizCard() {
-  const [choice, setChoice] = useState("contained");
+export default function QuizCard({
+  question,
+  questionIndex,
+  options,
+  submitAnswer,
+}) {
+  const [activeButtonIndex, setActiveButtonIndex] = useState(null);
+
+  const handleButtonClick = (optionIndex) => {
+    if (activeButtonIndex !== optionIndex) {
+      setActiveButtonIndex(optionIndex);
+    } else {
+      setActiveButtonIndex(null);
+    }
+
+    submitAnswer(questionIndex, optionIndex);
+  };
 
   const choiceBtnStyles = {
     display: "flex",
@@ -17,38 +32,31 @@ export default function QuizCard() {
   };
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345, minHeight: 200 }}>
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Lizard
+          Question Number : {questionIndex + 1}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+          {question}
         </Typography>
       </CardContent>
       <CardActions>
         <Grid container spacing={2}>
-          <Grid item xs={6} lg={6} style={choiceBtnStyles}>
-            <Button variant={choice} size="small">
-              Share 1
-            </Button>
-          </Grid>
-          <Grid item xs={6} lg={6} style={choiceBtnStyles}>
-            <Button variant={choice} size="small">
-              Share 2
-            </Button>
-          </Grid>
-          <Grid item xs={6} lg={6} style={choiceBtnStyles}>
-            <Button variant={choice} size="small">
-              Share 3
-            </Button>
-          </Grid>
-          <Grid item xs={6} lg={6} style={choiceBtnStyles}>
-            <Button variant={choice} size="small">
-              Share 4
-            </Button>
-          </Grid>
+          {options.map((item, optionIndex) => (
+            <Grid item xs={6} lg={6} style={choiceBtnStyles} key={optionIndex}>
+              <Button
+                variant={
+                  activeButtonIndex === optionIndex ? "contained" : "outlined"
+                }
+                key={optionIndex}
+                onClick={() => handleButtonClick(optionIndex)}
+                size="medium"
+              >
+                {item.option}
+              </Button>
+            </Grid>
+          ))}
         </Grid>
       </CardActions>
     </Card>

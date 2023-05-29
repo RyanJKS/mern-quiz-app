@@ -1,17 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import OverviewDialog from "./components/OverviewDialog";
 import LeadershipBoard from "./components/LeadershipBoard";
-import { useContext } from "react";
-import { AuthContext } from "./context/AuthContext";
-import QuizCard from "./components/QuizCard";
+import Dashboard from "./components/Dashboard";
 import RoutingPaths from "./pages/RoutingPaths";
+import { AuthContext } from "./context/AuthContext";
 
 function App() {
-  const { isUserAuthorised } = useContext(AuthContext);
+  const { leaderboardData } = useContext(AuthContext);
 
   const CenterStyles = {
     display: "flex",
@@ -53,7 +52,7 @@ function App() {
           justifyContent="center"
           alignItems="flex-start"
         >
-          <LeadershipBoard />
+          <LeadershipBoard data={leaderboardData} />
         </Grid>
         {/*CHANGING SECTION */}
         <Grid item xs={12} lg={8}>
@@ -64,7 +63,7 @@ function App() {
             spacing={4}
           >
             {/*DASHBOARD */}
-            <QuizCard />
+            <Dashboard />
             {/*USER LOCATION */}
             <RoutingPaths />
           </Stack>

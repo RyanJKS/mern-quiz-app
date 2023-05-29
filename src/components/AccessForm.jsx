@@ -9,10 +9,13 @@ import {
   MDBBtn,
   MDBInput,
 } from "mdb-react-ui-kit";
-import "./AccessForm.css";
+import { useNavigate } from "react-router-dom";
+import { axiosInstance } from "../config/apiConfig";
+import { InitialUserStats } from "../data/InitialUserStats";
+import Swal from "sweetalert2";
 
 function AccessForm() {
-  const [justifyActive, setJustifyActive] = useState("tab1");
+  const [justifyActive, setJustifyActive] = useState("tab2");
 
   const handleJustifyClick = (value) => {
     if (value === justifyActive) {
@@ -21,16 +24,67 @@ function AccessForm() {
     setJustifyActive(value);
   };
 
-  const signInEmail = useRef(null);
+  const navigate = useNavigate();
+
+  const signInUsername = useRef(null);
   const signInPassword = useRef(null);
   const signUpUsername = useRef(null);
   const signUpPassword = useRef(null);
 
-  const signIn = () => {
-    console.log("Ah");
+  //LOGIN USER
+  const signIn = async () => {
+    try {
+      let responses = await axiosInstance.post("/user/authentication/login", {
+        username: signInUsername.current.value,
+        password: signInPassword.current.value,
+      });
+
+      if (responses.status === 200) {
+        const response = responses.data;
+        localStorage.setItem("AuthorisationJWToken", response.token);
+        navigate("/Home/" + response.data._id);
+      }
+    } catch (error) {
+      alert("Wrong Credentials");
+    }
   };
-  const signUp = () => {
-    console.log("Ah");
+  const signUp = async () => {
+    //CREATE NEW USER
+    try {
+      let responses = await axiosInstance.post(
+        "/user/authentication/register",
+        {
+          username: signUpUsername.current.value,
+          password: signUpPassword.current.value,
+        }
+      );
+      if (responses.status === 200) {
+        Swal.fire(
+          "Congratulations!",
+          "You have successfully signed up. Please log in to play the game.",
+          "success"
+        );
+        //CREATE USER INITIAL STATS
+        try {
+          await axiosInstance.post(
+            "/user/stats/register",
+            InitialUserStats(responses.data._id, responses.data.username)
+          );
+        } catch (error) {
+          alert(error.message);
+        }
+
+        setTimeout(function () {
+          window.location.reload();
+        }, 2000);
+      }
+    } catch (error) {
+      Swal.fire(
+        "Oops...!",
+        "You already have an account. Please login to continue.",
+        "error"
+      );
+    }
   };
 
   return (
@@ -65,9 +119,9 @@ function AccessForm() {
         <MDBTabsPane show={justifyActive === "tab1"}>
           <MDBInput
             wrapperClass="mb-4"
-            type="email"
-            label="Email"
-            ref={signInEmail}
+            label="Username"
+            type="text"
+            ref={signInUsername}
           />
           <MDBInput
             wrapperClass="mb-4"
