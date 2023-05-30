@@ -6,7 +6,7 @@ export default function LeadershipBoard({ data }) {
     return b.totalPoints - a.totalPoints;
   });
   return (
-    <MDBTable className="bg-secondary text-white rounded w-75">
+    <MDBTable className="leaderboard-container bg-secondary text-white rounded w-25">
       <MDBTableHead>
         <tr>
           <th scope="col">#</th>

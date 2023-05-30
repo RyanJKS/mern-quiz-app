@@ -9,9 +9,19 @@
   font-size: 4vw;
 }
 
+.leaderboard-container {
+  position:fixed;
+}
+
 @media (max-width: 768px) {
   .title{
     font-size: 10vw;
   }
+
+  .leaderboard-container {
+  position:sticky;
+}
+
+
   
 }

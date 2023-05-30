@@ -35,6 +35,10 @@ function OverviewDialog() {
               <li>
                 Earn as many points as you can to get onto the leaderboard.
               </li>
+              <li>
+                Points will only be earned when you press <b>submit</b> at the
+                end of the quiz.
+              </li>
             </ul>
           </Card>
         </div>

@@ -32,11 +32,20 @@ export default function QuizCard({
   };
 
   return (
-    <Card sx={{ maxWidth: 345, minHeight: 200 }}>
+    <Card
+      sx={{
+        width: 350,
+        height: 280,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+      }}
+    >
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           Question Number : {questionIndex + 1}
         </Typography>
+
         <Typography variant="body2" color="text.secondary">
           {question}
         </Typography>
@@ -51,7 +60,7 @@ export default function QuizCard({
                 }
                 key={optionIndex}
                 onClick={() => handleButtonClick(optionIndex)}
-                size="medium"
+                style={{ width: "100%", height: "100%" }}
               >
                 {item.option}
               </Button>

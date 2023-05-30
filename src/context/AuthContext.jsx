@@ -38,7 +38,6 @@ export const AuthContextProvider = (props) => {
       console.error(err);
     }
   };
-  const { totalGamesPlayed, totalPoints } = userStats;
 
   const updateDatabase = async (userID, correctCount) => {
     const updatedStats = {
@@ -65,8 +64,6 @@ export const AuthContextProvider = (props) => {
         leaderboardData,
         getSpecificUser,
         userStats,
-        totalGamesPlayed,
-        totalPoints,
         updateDatabase,
         showQuiz,
         setShowQuiz,
