@@ -8,7 +8,6 @@ export const AuthContextProvider = (props) => {
 
   const [leaderboardData, setLeaderboardData] = useState([]);
   const [userStats, setUserStats] = useState([]);
-  const [showQuiz, setShowQuiz] = useState(false);
 
   const [userTotalPoints, setUserTotalPoints] = useState(null);
   const [userTotalGames, setUserTotalGames] = useState(null);
@@ -65,8 +64,6 @@ export const AuthContextProvider = (props) => {
         getSpecificUser,
         userStats,
         updateDatabase,
-        showQuiz,
-        setShowQuiz,
       }}
     >
       {props.children}

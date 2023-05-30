@@ -9,10 +9,11 @@ import Swal from "sweetalert2";
 
 function Home() {
   const [questions, setQuestions] = useState([]);
+  const [showQuiz, setShowQuiz] = useState(false);
   const location = useLocation();
   const currentUserId = location.pathname.split("/")[2];
 
-  const { showQuiz, setShowQuiz, accessToken } = useContext(AuthContext);
+  const { accessToken } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -74,12 +75,20 @@ function Home() {
         width="80%"
         spacing={2}
       >
-        <Button onClick={() => setShowQuiz(!showQuiz)}>Start Game</Button>
+        <Button onClick={() => setShowQuiz(!showQuiz)}>
+          {showQuiz ? "Stop Game" : "Start Game"}
+        </Button>
         <Button onClick={handleLogOut}>Log Out</Button>
         <Button onClick={handleDeleteAccount}>Delete Account</Button>
       </Stack>
 
-      {showQuiz ? <GameSession questions={questions} /> : null}
+      {showQuiz ? (
+        <GameSession
+          questions={questions}
+          isGameSession={setShowQuiz}
+          currentUserId={currentUserId}
+        />
+      ) : null}
     </>
   );
 }

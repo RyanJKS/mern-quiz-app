@@ -3,13 +3,10 @@ import Grid from "@mui/material/Grid";
 import QuizCard from "../components/QuizCard";
 import Button from "react-bootstrap/Button";
 import Swal from "sweetalert2";
-import { useLocation } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
-function GameSession({ questions }) {
-  const location = useLocation();
-  const currentUserId = location.pathname.split("/")[2];
-  const { updateDatabase, setShowQuiz } = useContext(AuthContext);
+function GameSession({ questions, isGameSession, currentUserId }) {
+  const { updateDatabase } = useContext(AuthContext);
 
   const cardDisplayStyles = {
     display: "flex",
@@ -50,7 +47,7 @@ function GameSession({ questions }) {
 
     updateDatabase(currentUserId, correctCount);
 
-    setShowQuiz((prev) => !prev);
+    isGameSession((prev) => !prev);
 
     setTimeout(function () {
       window.location.reload();
