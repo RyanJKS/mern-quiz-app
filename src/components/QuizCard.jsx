@@ -34,7 +34,9 @@ export default function QuizCard({ question, questionIndex, options }) {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        backgroundColor: "rgb(0, 255, 255)",
+        backgroundColor: "#282c34",
+        boxShadow: "0px 5px 10px 0px rgba(0,255,255,0.7)",
+        color: "#3B71CA",
       }}
     >
       <CardContent>
@@ -42,9 +44,7 @@ export default function QuizCard({ question, questionIndex, options }) {
           Question {questionIndex + 1} / 10
         </Typography>
 
-        <Typography variant="body2" color="text.secondary">
-          {question}
-        </Typography>
+        <Typography variant="body2">{question}</Typography>
       </CardContent>
       <CardActions>
         <Grid container spacing={2}>
