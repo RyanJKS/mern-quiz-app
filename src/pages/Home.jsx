@@ -21,7 +21,7 @@ function Home() {
     const getQuestions = async () => {
       try {
         const responses = await axiosInstance.get("/api/getquiz");
-        setQuestions(responses.data.questions);
+        setQuestions(responses.data.questions.slice(0, 10));
       } catch (error) {
         console.error(error);
       }

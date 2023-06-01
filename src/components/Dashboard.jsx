@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -6,6 +6,7 @@ import Grid from "@mui/material/Grid";
 import { useLocation } from "react-router-dom";
 import DoughnutChart from "./Charts/DoughnutChart";
 import { AuthContext } from "../context/AuthContext";
+import Timer from "./Timer";
 
 export default function Dashboard() {
   const location = useLocation();
@@ -36,6 +37,7 @@ export default function Dashboard() {
             >
               <DoughnutChart data={userStats} />
               <DoughnutChart data={userStats} />
+              <Timer />
             </div>
           </Typography>
         </CardContent>
