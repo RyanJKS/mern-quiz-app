@@ -1,22 +1,17 @@
-import React, { useContext } from "react";
+import React from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Grid from "@mui/material/Grid";
-import Stack from "@mui/material/Stack";
 import OverviewDialog from "./components/OverviewDialog";
-import LeadershipBoard from "./components/LeadershipBoard";
-import Dashboard from "./components/Dashboard";
 import RoutingPaths from "./pages/RoutingPaths";
-import { AuthContext } from "./context/AuthContext";
 
 function App() {
-  const { leaderboardData } = useContext(AuthContext);
-
   const CenterStyles = {
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    paddingBottom: "1rem",
   };
 
   return (
@@ -35,40 +30,8 @@ function App() {
       <Grid item color="black" xs={12} lg={12} style={CenterStyles}>
         <OverviewDialog />
       </Grid>
-      {/*PARTITION SECTION */}
-      <Grid
-        container
-        item
-        direction="row-reverse"
-        paddingTop="2rem"
-        spacing={2}
-      >
-        {/*LEADERSHIP BOARD */}
-        <Grid
-          item
-          xs={12}
-          lg={4}
-          display="flex"
-          justifyContent="center"
-          alignItems="flex-start"
-        >
-          <LeadershipBoard data={leaderboardData} />
-        </Grid>
-        {/*CHANGING SECTION */}
-        <Grid item xs={12} lg={8}>
-          <Stack
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-            spacing={4}
-          >
-            {/*DASHBOARD */}
-            <Dashboard />
-            {/*USER LOCATION */}
-            <RoutingPaths />
-          </Stack>
-        </Grid>
-      </Grid>
+      {/*USER LOCATION */}
+      <RoutingPaths />
     </Grid>
   );
 }

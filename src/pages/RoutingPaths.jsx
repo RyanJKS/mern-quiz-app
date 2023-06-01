@@ -8,8 +8,8 @@ function RoutingPaths() {
   return (
     <Routes>
       <Route exact path="/" element={<Landing />} />
-      <Route exact path="/Home/:id" element={<Home />} />
-      <Route exact path="/GameSession/:id" element={<GameSession />} />
+      <Route exact path="/home/:id" element={<Home />} />
+      <Route exact path="/game-session/:id" element={<GameSession />} />
       <Route exact path="/*" element={<Landing />} />
     </Routes>
   );

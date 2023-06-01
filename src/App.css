@@ -13,13 +13,6 @@
   position:fixed;
 }
 
-.form-container{
-  width: 75%;
-  background-color: whitesmoke;
-  color: black;
-  border-radius: 25px;
-}
-
 @media (max-width: 768px) {
   .title{
     font-size: 10vw;

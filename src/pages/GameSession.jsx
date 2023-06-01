@@ -1,81 +1,92 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate, useLocation } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import QuizCard from "../components/QuizCard";
 import Button from "react-bootstrap/Button";
 import Swal from "sweetalert2";
-import { AuthContext } from "../context/AuthContext";
+import Timer from "../components/Timer";
+import { Submit } from "../helper/Game";
 
-function GameSession({ questions, isGameSession, currentUserId }) {
-  const { updateDatabase } = useContext(AuthContext);
+export default function GameSession() {
+  const { accessToken, userTotalPoints, userTotalGames, questions } =
+    useContext(AuthContext);
 
-  const cardDisplayStyles = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    marginBottom: "1rem",
-  };
-  // Initialize the answers array
-  const answers = [];
+  const location = useLocation();
+  const currentUserId = location.pathname.split("/")[2];
+  const navigate = useNavigate();
 
-  // Function to save the user's answer
-  function onSaveAnswer(questionIndex, optionIndex) {
-    // Save the selected option for the question
-    answers[questionIndex] = optionIndex;
-  }
-  function handleSubmit() {
-    let correctCount = 0;
-    let wrongCount = 0;
-    // Iterate over each question in the quiz
-    questions?.forEach((question, index) => {
-      // Get the user's answer for the current question
-      const userAnswer = answers[index];
+  const [currentQuestion, setCurrentQuestion] = useState(0);
 
-      // Check if the user's answer matches the correct answer
-      if (
-        userAnswer !== undefined &&
-        userAnswer === question.options.findIndex((option) => option.isCorrect)
-      ) {
-        correctCount++;
-      } else {
-        wrongCount++;
-      }
-    });
-
-    Swal.fire(
-      `Scoreboard\nCorrect answers : ${correctCount}\nWrong answers : ${wrongCount}`
+  const handleSubmission = () => {
+    Submit(
+      accessToken,
+      userTotalPoints,
+      userTotalGames,
+      questions,
+      currentUserId
     );
+    navigate(`/home/${currentUserId}`);
+  };
 
-    updateDatabase(currentUserId, correctCount);
+  const handleNextGame = () => {
+    if (currentQuestion < 9) {
+      setCurrentQuestion(currentQuestion + 1);
+    } else {
+      Swal.fire("You went too far!", "Please go back.", "error");
+    }
+  };
 
-    isGameSession((prev) => !prev);
-
-    setTimeout(function () {
-      window.location.reload();
-    }, 6000);
-    // Reset the answers array
-    answers.length = 0;
-  }
+  const handleBackGame = () => {
+    if (currentQuestion > 0) {
+      setCurrentQuestion(currentQuestion - 1);
+    } else {
+      Swal.fire(
+        "You went too far!",
+        "Please go to next quiz since there is no more back.",
+        "error"
+      );
+    }
+  };
 
   return (
-    <Grid container>
-      {questions?.map((question, index) => (
-        <Grid item xs={12} lg={6} style={cardDisplayStyles} key={index}>
-          <QuizCard
-            question={question.text}
-            questionIndex={index}
-            options={question.options}
-            submitAnswer={onSaveAnswer}
-          />
-        </Grid>
-      ))}
+    <Grid container item direction="row-reverse" paddingTop="2rem" spacing={2}>
+      {/*TIMER */}
+      <Grid
+        item
+        xs={12}
+        lg={4}
+        display="flex"
+        justifyContent="center"
+        alignItems="flex-start"
+      >
+        <Timer handleSubmission={handleSubmission} />
+      </Grid>
 
-      <Grid item xs={12} lg={12} style={cardDisplayStyles}>
-        <Button variant="success" onClick={handleSubmit}>
+      {/*QUIZ CARD */}
+      <Grid item xs={12} lg={8} display="flex" justifyContent="center">
+        <QuizCard
+          question={questions[currentQuestion].text}
+          questionIndex={currentQuestion}
+          options={questions[currentQuestion].options}
+        />
+      </Grid>
+
+      {/*CONTROL BUTTON*/}
+      <Grid
+        item
+        xs={12}
+        lg={12}
+        display="flex"
+        justifyContent="space-evenly"
+        padding="2rem 0 2rem 0"
+      >
+        <Button onClick={handleBackGame}>Back</Button>
+        <Button onClick={handleNextGame}>Next</Button>
+        <Button variant="success" onClick={handleSubmission}>
           Submit
         </Button>
       </Grid>
     </Grid>
   );
 }
-
-export default GameSession;

@@ -6,13 +6,9 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
+import { onSaveAnswer } from "../helper/Game";
 
-export default function QuizCard({
-  question,
-  questionIndex,
-  options,
-  submitAnswer,
-}) {
+export default function QuizCard({ question, questionIndex, options }) {
   const [activeButtonIndex, setActiveButtonIndex] = useState(null);
 
   const handleButtonClick = (optionIndex) => {
@@ -21,8 +17,7 @@ export default function QuizCard({
     } else {
       setActiveButtonIndex(null);
     }
-
-    submitAnswer(questionIndex, optionIndex);
+    onSaveAnswer(questionIndex, optionIndex);
   };
 
   const choiceBtnStyles = {
@@ -34,16 +29,17 @@ export default function QuizCard({
   return (
     <Card
       sx={{
-        width: 350,
-        height: 280,
+        width: "80%",
+        height: "40vh",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
+        backgroundColor: "rgb(0, 255, 255)",
       }}
     >
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Question Number : {questionIndex + 1}
+          Question {questionIndex + 1} / 10
         </Typography>
 
         <Typography variant="body2" color="text.secondary">

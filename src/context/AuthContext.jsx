@@ -8,6 +8,7 @@ export const AuthContextProvider = (props) => {
 
   const [leaderboardData, setLeaderboardData] = useState([]);
   const [userStats, setUserStats] = useState([]);
+  const [questions, setQuestions] = useState([]);
 
   const [userTotalPoints, setUserTotalPoints] = useState(null);
   const [userTotalGames, setUserTotalGames] = useState(null);
@@ -38,24 +39,6 @@ export const AuthContextProvider = (props) => {
     }
   };
 
-  const updateDatabase = async (userID, correctCount) => {
-    const updatedStats = {
-      totalPoints: userTotalPoints + correctCount,
-      totalGamesPlayed: userTotalGames + 1,
-      winPercentage: Math.floor(
-        ((userTotalPoints + correctCount) / ((userTotalGames + 1) * 20)) * 100
-      ),
-    };
-    try {
-      //AXIOS PUT FORMAT PUT.{URL, {BODY}, {HEADERS}}
-      await axiosInstance.put(`/user/stats/update/${userID}`, updatedStats, {
-        headers: { Authorisation: `${accessToken}` },
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
     <AuthContext.Provider
       value={{
@@ -63,7 +46,10 @@ export const AuthContextProvider = (props) => {
         leaderboardData,
         getSpecificUser,
         userStats,
-        updateDatabase,
+        questions,
+        setQuestions,
+        userTotalPoints,
+        userTotalGames,
       }}
     >
       {props.children}
