@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { axiosInstance } from "../config/apiConfig";
 import { AuthContext } from "../context/AuthContext";
 import Stack from "@mui/material/Stack";
-import Button from "react-bootstrap/Button";
+import { Button } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import LeadershipBoard from "../components/LeadershipBoard";
 import Dashboard from "../components/Dashboard";
@@ -21,9 +21,9 @@ function Home() {
 
   const getQuestions = async () => {
     try {
-      // let responses = await axiosInstance.get("/api/getquiz");
-      // setQuestions(responses.data.questions.slice(0, 10));
-      setQuestions(SampleQuestion.slice(0, 10));
+      let responses = await axiosInstance.get("/api/getquiz");
+      setQuestions(responses.data.questions.slice(0, 10));
+      // setQuestions(SampleQuestion.slice(0, 10));
 
       navigate(`/game-session/${currentUserId}`);
     } catch (error) {
@@ -94,9 +94,15 @@ function Home() {
           alignItems="center"
           spacing={2}
         >
-          <Button onClick={getQuestions}>Start Game</Button>
-          <Button onClick={handleLogOut}>Log Out</Button>
-          <Button onClick={handleDeleteAccount}>Delete Account</Button>
+          <Button variant="contained" onClick={getQuestions}>
+            Start Game
+          </Button>
+          <Button variant="contained" onClick={handleLogOut}>
+            Log Out
+          </Button>
+          <Button variant="contained" onClick={handleDeleteAccount}>
+            Delete Account
+          </Button>
         </Stack>
       </Grid>
 

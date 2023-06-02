@@ -24,7 +24,7 @@ function App() {
     >
       {/*PAGE TITLE */}
       <Grid item margin="2rem">
-        <h1 className="title text-primary">Quiz Game</h1>
+        <h1 className="title">Quiz Game</h1>
       </Grid>
       {/*OVERVIEW DIALOG */}
       <Grid item color="black" xs={12} lg={12} style={CenterStyles}>

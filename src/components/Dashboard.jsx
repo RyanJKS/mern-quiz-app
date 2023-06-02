@@ -1,5 +1,4 @@
-import React, { useEffect, useContext } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -8,16 +7,7 @@ import Grid from "@mui/material/Grid";
 import DoughnutChart from "./Charts/DoughnutChart";
 
 export default function Dashboard() {
-  const location = useLocation();
-  const currentUserId = location.pathname.split("/")[2];
-
-  const { getSpecificUser, userStats } = useContext(AuthContext);
-
-  useEffect(() => {
-    if (currentUserId !== null) {
-      getSpecificUser(currentUserId);
-    }
-  }, [location.pathname]);
+  const { userStats } = useContext(AuthContext);
 
   return (
     <Grid item width="80%">

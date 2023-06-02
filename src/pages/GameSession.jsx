@@ -6,10 +6,12 @@ import QuizCard from "../components/QuizCard";
 import Button from "react-bootstrap/Button";
 import Swal from "sweetalert2";
 import Timer from "../components/Timer";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 import { Submit } from "../helper/Game";
 
 export default function GameSession() {
-  const { accessToken, userTotalPoints, userTotalGames, questions } =
+  const { accessToken, userTotalPoints, userTotalGames, questions, isLoading } =
     useContext(AuthContext);
 
   const location = useLocation();
@@ -49,31 +51,52 @@ export default function GameSession() {
     }
   };
 
-  return (
-    <Grid container item direction="row-reverse" paddingTop="2rem" spacing={2}>
-      {/*TIMER */}
+  const LoaderAction = () => {
+    return (
       <Grid
         item
         xs={12}
-        lg={4}
+        lg={12}
         display="flex"
         justifyContent="center"
-        alignItems="flex-start"
+        padding="2rem 0 2rem 0"
       >
-        <Timer submitQuiz={handleSubmission} />
+        <Box sx={{ display: "flex" }}>
+          <CircularProgress />
+        </Box>
       </Grid>
+    );
+  };
 
-      {/*QUIZ CARD */}
-      {questions.length !== 0 ? (
-        <Grid item xs={12} lg={8} display="flex" justifyContent="center">
-          <QuizCard
-            question={questions[currentQuestion].text}
-            questionIndex={currentQuestion}
-            options={questions[currentQuestion].options}
-          />
-        </Grid>
+  return (
+    <Grid container item direction="row-reverse" paddingTop="2rem" spacing={2}>
+      {!isLoading ? (
+        <>
+          <Grid
+            item
+            xs={12}
+            lg={4}
+            display="flex"
+            justifyContent="center"
+            alignItems="flex-start"
+          >
+            <Timer submitQuiz={handleSubmission} />
+          </Grid>
+
+          {questions.length !== 0 ? (
+            <Grid item xs={12} lg={8} display="flex" justifyContent="center">
+              <QuizCard
+                question={questions[currentQuestion].text}
+                questionIndex={currentQuestion}
+                options={questions[currentQuestion].options}
+              />
+            </Grid>
+          ) : (
+            navigate(`/home/${currentUserId}`)
+          )}
+        </>
       ) : (
-        navigate(`/home/${currentUserId}`)
+        <LoaderAction />
       )}
 
       {/*CONTROL BUTTON*/}
