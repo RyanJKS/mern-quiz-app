@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 import { deleteAccount } from "../helper/Account";
 
 function Home() {
-  const { accessToken, setQuestions, leaderboardData } =
+  const { accessToken, setQuestions, setIsLoading, leaderboardData } =
     useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -21,10 +21,11 @@ function Home() {
 
   const getQuestions = async () => {
     try {
+      setIsLoading(true);
       let responses = await axiosInstance.get("/api/getquiz");
       setQuestions(responses.data.questions.slice(0, 10));
       // setQuestions(SampleQuestion.slice(0, 10));
-
+      setIsLoading(false);
       navigate(`/game-session/${currentUserId}`);
     } catch (error) {
       console.error(error);
@@ -34,6 +35,7 @@ function Home() {
   const handleLogOut = () => {
     localStorage.removeItem("AuthorisationJWToken");
     navigate("/");
+    window.location.reload();
   };
 
   const handleDeleteAccount = () => {
@@ -88,12 +90,7 @@ function Home() {
     >
       {/*3 BUTTONS FOR HANDLE USER LOCATION */}
       <Grid item xs={12} lg={12}>
-        <Stack
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          spacing={2}
-        >
+        <Stack direction="row" justifyContent="center" spacing={2}>
           <Button variant="contained" onClick={getQuestions}>
             Start Game
           </Button>

@@ -1,21 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Collapse from "@mui/material/Collapse";
 import Container from "@mui/material/Container";
 import CardContent from "@mui/material/CardContent";
 import { Button } from "@mui/material";
+import { AuthContext } from "../context/AuthContext";
 
 function OverviewDialog() {
   const [open, setOpen] = useState(true);
-
+  const { accessToken } = useContext(AuthContext);
+  // To make overview dialog not visible when user is not logged in
+  useEffect(() => {
+    if (accessToken !== null) {
+      setOpen(false);
+    }
+  }, [accessToken]);
   return (
     <div
       style={{
         width: "100%",
         display: "flex",
         justifyContent: "center",
-        display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
         alignItems: "center",
       }}
     >

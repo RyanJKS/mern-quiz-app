@@ -23,7 +23,9 @@ function Registration({ currentTab, switchTab }) {
           "Congratulations!",
           "You have successfully signed up. Please log in to play the game.",
           "success"
-        );
+        ).then(() => {
+          switchTab("tab1");
+        });
         //CREATE USER INITIAL STATS
         try {
           await axiosInstance.post(
@@ -33,10 +35,6 @@ function Registration({ currentTab, switchTab }) {
         } catch (error) {
           alert(error.message);
         }
-
-        setTimeout(function () {
-          window.location.reload();
-        }, 2000);
       }
     } catch (error) {
       Swal.fire(

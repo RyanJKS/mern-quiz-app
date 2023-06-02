@@ -33,7 +33,7 @@ export const chartData = (data) => {
 function DoughnutChart({ data }) {
   return (
     <div className="chart-size">
-      <Doughnut data={chartData(data)} />;
+      <Doughnut data={chartData(data)} />
     </div>
   );
 }

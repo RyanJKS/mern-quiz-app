@@ -28,11 +28,10 @@ export const AuthContextProvider = (props) => {
   const userAuthorised = async () => {
     if (accessToken !== null) {
       try {
-        setIsLoading(true);
         const responses = await axiosInstance.get(`/user/stats/current`, {
           headers: { authorisation: `${accessToken}` },
         });
-        setIsLoading(false);
+
         if (responses.status !== "fail") {
           setUserStats(responses.data);
           setUserTotalPoints(responses.data[0].totalPoints);
@@ -63,6 +62,7 @@ export const AuthContextProvider = (props) => {
         questions,
         setQuestions,
         isLoading,
+        setIsLoading,
         userTotalPoints,
         userTotalGames,
       }}
