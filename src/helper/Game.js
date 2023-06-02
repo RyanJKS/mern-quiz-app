@@ -58,14 +58,16 @@ export function Submit(
 
   Swal.fire(
     `Scoreboard\nCorrect answers : ${correctCount}\nWrong answers : ${wrongCount}`
-  );
-  updateDatabase(
-    accessToken,
-    userTotalPoints,
-    userTotalGames,
-    currentUserId,
-    correctCount
-  );
+  ).then(() => {
+    updateDatabase(
+      accessToken,
+      userTotalPoints,
+      userTotalGames,
+      currentUserId,
+      correctCount
+    );
+    window.location.reload();
+  });
 
   // Reset the answers array
   answers.length = 0;

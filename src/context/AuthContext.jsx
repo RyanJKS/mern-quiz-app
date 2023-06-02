@@ -22,10 +22,6 @@ export const AuthContextProvider = (props) => {
     }
   };
 
-  useEffect(() => {
-    getLeaderboardData();
-  }, []);
-
   const getSpecificUser = async (currentUserId) => {
     try {
       const responses = await axiosInstance.get(
@@ -38,6 +34,21 @@ export const AuthContextProvider = (props) => {
       console.error(err);
     }
   };
+  const getSpec = async () => {
+    try {
+      const responses = await axiosInstance.get(`/user/stats/spec`, {
+        headers: { authorisation: `${accessToken}` },
+      });
+      console.log(responses.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    getLeaderboardData();
+    getSpec();
+  }, []);
 
   return (
     <AuthContext.Provider

@@ -60,17 +60,21 @@ export default function GameSession() {
         justifyContent="center"
         alignItems="flex-start"
       >
-        <Timer handleSubmission={handleSubmission} />
+        <Timer submitQuiz={handleSubmission} />
       </Grid>
 
       {/*QUIZ CARD */}
-      <Grid item xs={12} lg={8} display="flex" justifyContent="center">
-        <QuizCard
-          question={questions[currentQuestion].text}
-          questionIndex={currentQuestion}
-          options={questions[currentQuestion].options}
-        />
-      </Grid>
+      {questions.length !== 0 ? (
+        <Grid item xs={12} lg={8} display="flex" justifyContent="center">
+          <QuizCard
+            question={questions[currentQuestion].text}
+            questionIndex={currentQuestion}
+            options={questions[currentQuestion].options}
+          />
+        </Grid>
+      ) : (
+        navigate(`/home/${currentUserId}`)
+      )}
 
       {/*CONTROL BUTTON*/}
       <Grid

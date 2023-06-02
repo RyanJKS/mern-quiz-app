@@ -8,8 +8,8 @@ import Grid from "@mui/material/Grid";
 import LeadershipBoard from "../components/LeadershipBoard";
 import Dashboard from "../components/Dashboard";
 import { SampleQuestion } from "../data/SampleQuestions";
-
 import Swal from "sweetalert2";
+import { deleteAccount } from "../helper/Account";
 
 function Home() {
   const { accessToken, setQuestions, leaderboardData } =
@@ -36,33 +36,46 @@ function Home() {
     navigate("/");
   };
 
-  const handleDeleteAccount = async () => {
-    try {
-      //AXIOS DELETE FORMAT DELETE.{URL, {HEADER, BODY}}
-      const response = await axiosInstance.delete(
-        `/user/delete/${currentUserId}`,
-        {
-          headers: { authorisation: `${accessToken}` },
-          data: {
-            userId: currentUserId,
-          },
-        }
-      );
-      if (response.status === 200) {
-        Swal.fire(
-          "Account Deleted!",
-          "You have successfully deleted your account and statistics.",
-          "success"
-        );
-        navigate("/");
-      }
-    } catch (error) {
-      console.error(error);
-    }
+  const handleDeleteAccount = () => {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger",
+      },
+      buttonsStyling: false,
+    });
 
-    setTimeout(function () {
-      window.location.reload();
-    }, 2000);
+    swalWithBootstrapButtons
+      .fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          deleteAccount(accessToken, currentUserId);
+          swalWithBootstrapButtons.fire(
+            "Deleted!",
+            "Your stats have been deleted.",
+            "success"
+          );
+          localStorage.removeItem("AuthorisationJWToken");
+          navigate("/");
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            "Cancelled",
+            "Your stats are safe :)",
+            "error"
+          );
+        }
+      });
   };
 
   return (

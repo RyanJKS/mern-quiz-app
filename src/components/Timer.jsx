@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import Swal from "sweetalert2";
 
-function Timer({ handleSubmission }) {
-  const initialTime = 300; //in seconds
+function Timer({ submitQuiz }) {
+  const initialTime = 10; //in seconds
   const increment = 1; //in seconds
 
   const [timeRemaining, setTimeRemaining] = useState(initialTime);
@@ -18,7 +19,14 @@ function Timer({ handleSubmission }) {
 
         if (prevTime === 0) {
           clearInterval(timer);
-          handleSubmission();
+          Swal.fire({
+            title: `Oh ohhhhh. You\'re out of time!`,
+            icon: "error",
+            confirmButtonText: "OK",
+          }).then(() => {
+            submitQuiz();
+          });
+
           return prevTime;
         } else {
           return prevTime - increment;

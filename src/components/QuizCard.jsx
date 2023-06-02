@@ -36,7 +36,7 @@ export default function QuizCard({ question, questionIndex, options }) {
         justifyContent: "space-between",
         backgroundColor: "#282c34",
         boxShadow: "0px 5px 10px 0px rgba(0,255,255,0.7)",
-        color: "#3B71CA",
+        color: "white",
       }}
     >
       <CardContent>
