@@ -1,12 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
+import { axiosInstance } from "../config/apiConfig";
 
-export default function LeadershipBoard({ data }) {
-  const sortData = data?.sort((a, b) => {
+export default function LeadershipBoard() {
+  const [leaderboardData, setLeaderboardData] = useState([]);
+
+  useEffect(() => {
+    const getLeaderboardData = async () => {
+      try {
+        const responses = await axiosInstance.get("/user/stats/all");
+        setLeaderboardData(responses.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getLeaderboardData();
+  }, []);
+
+  const sortData = leaderboardData.sort((a, b) => {
     return b.totalPoints - a.totalPoints;
   });
+
   return (
-    <MDBTable className="leaderboard-container bg-secondary text-white rounded w-25">
+    <MDBTable className="leaderboard-container bg-secondary text-white rounded w-75">
       <MDBTableHead>
         <tr>
           <th scope="col">#</th>

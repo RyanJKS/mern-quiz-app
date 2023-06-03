@@ -1,34 +1,34 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import QuizCard from "../components/QuizCard";
 import Button from "react-bootstrap/Button";
 import Swal from "sweetalert2";
 import Timer from "../components/Timer";
-import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
 import { Submit } from "../helper/Game";
+import LoadingAnimation from "../components/LoadingAnimation";
 
 export default function GameSession() {
-  const { accessToken, userTotalPoints, userTotalGames, questions, isLoading } =
+  const { accessToken, currentUser, questions, isLoading } =
     useContext(AuthContext);
-
-  const location = useLocation();
-  const currentUserId = location.pathname.split("/")[2];
   const navigate = useNavigate();
+
+  const timer = 30; //in seconds
+  const increment = 1; //in seconds
+  const [clockTime, setClockTime] = useState(timer); //send to timer component and save last taken time
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
 
   const handleSubmission = () => {
-    Submit(
-      accessToken,
-      userTotalPoints,
-      userTotalGames,
-      questions,
-      currentUserId
-    );
-    navigate(`/home/${currentUserId}`);
+    let timeTaken = 0;
+    if (clockTime === timer) {
+      timeTaken = timer;
+    } else {
+      timeTaken = timer - clockTime;
+    }
+    Submit(accessToken, currentUser, questions, timeTaken);
+    navigate(`/home/${currentUser.userID}`);
   };
 
   const handleNextGame = () => {
@@ -51,26 +51,12 @@ export default function GameSession() {
     }
   };
 
-  const LoaderAction = () => {
-    return (
-      <Grid
-        item
-        xs={12}
-        lg={12}
-        display="flex"
-        justifyContent="center"
-        padding="2rem 0 2rem 0"
-      >
-        <Box sx={{ display: "flex" }}>
-          <CircularProgress />
-        </Box>
-      </Grid>
-    );
-  };
-
   return (
     <Grid container item direction="row-reverse" paddingTop="2rem" spacing={2}>
-      {!isLoading ? (
+      {/*DISPLAY LOADING ANIMATION WHILST FETCHING QUESTIONS. NAVIGATE TO HOME IF NO QUESTIONS (PREVENT RELOAD & CHEATING). */}
+      {isLoading ? (
+        <LoadingAnimation />
+      ) : (
         <>
           <Grid
             item
@@ -80,7 +66,13 @@ export default function GameSession() {
             justifyContent="center"
             alignItems="flex-start"
           >
-            <Timer submitQuiz={handleSubmission} />
+            <Timer
+              submitQuiz={handleSubmission}
+              timer={timer}
+              increment={increment}
+              clockTime={clockTime}
+              getClockTime={setClockTime}
+            />
           </Grid>
 
           {questions.length !== 0 ? (
@@ -92,14 +84,12 @@ export default function GameSession() {
               />
             </Grid>
           ) : (
-            navigate(`/home/${currentUserId}`)
+            navigate(`/home/${currentUser !== null && currentUser.userID}`)
           )}
         </>
-      ) : (
-        <LoaderAction />
       )}
 
-      {/*CONTROL BUTTON*/}
+      {/*CONTROL BUTTON DURING GAME*/}
       <Grid
         item
         xs={12}

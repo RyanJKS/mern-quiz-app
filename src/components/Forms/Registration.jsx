@@ -8,15 +8,29 @@ function Registration({ currentTab, switchTab }) {
   const signUpUsername = useRef(null);
   const signUpPassword = useRef(null);
 
+  // CREATE COLLECTION WITH INTRO DATA ON REGISTRATION
+  const createUserStats = async (userID, username) => {
+    try {
+      await axiosInstance.post(
+        "/user/stats/register",
+        InitialUserStats(userID, username)
+      );
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  //CREATE NEW USER
   const signUp = async () => {
-    //CREATE NEW USER
+    let userInput = {
+      username: signUpUsername.current.value,
+      password: signUpPassword.current.value,
+    };
+
     try {
       let responses = await axiosInstance.post(
         "/user/authentication/register",
-        {
-          username: signUpUsername.current.value,
-          password: signUpPassword.current.value,
-        }
+        userInput
       );
       if (responses.status === 200) {
         Swal.fire(
@@ -24,17 +38,9 @@ function Registration({ currentTab, switchTab }) {
           "You have successfully signed up. Please log in to play the game.",
           "success"
         ).then(() => {
+          createUserStats(responses.data._id, responses.data.username);
           switchTab("tab1");
         });
-        //CREATE USER INITIAL STATS
-        try {
-          await axiosInstance.post(
-            "/user/stats/register",
-            InitialUserStats(responses.data._id, responses.data.username)
-          );
-        } catch (error) {
-          alert(error.message);
-        }
       }
     } catch (error) {
       Swal.fire(

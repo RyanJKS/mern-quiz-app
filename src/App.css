@@ -6,23 +6,13 @@
   text-align: center;
   color: rgba(0,255,255,0.7);
   font-family: 'Cinzel', serif;
-  margin-top: 1rem;
   font-size: 4vw;
 }
 
-.leaderboard-container {
-  position:fixed;
-}
 
 @media (max-width: 768px) {
   .title{
     font-size: 10vw;
   }
 
-  .leaderboard-container {
-  position:sticky;
-}
-
-
-  
 }

@@ -3,24 +3,19 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import Swal from "sweetalert2";
 
-function Timer({ submitQuiz }) {
-  const initialTime = 10; //in seconds
-  const increment = 1; //in seconds
-
-  const [timeRemaining, setTimeRemaining] = useState(initialTime);
+function Timer({ submitQuiz, timer, increment, clockTime, getClockTime }) {
   const [timerColor, setTimeColor] = useState("green");
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeRemaining((prevTime) => {
-        if (prevTime <= initialTime / 2) {
+    const getTime = () => {
+      getClockTime((prevTime) => {
+        if (prevTime <= timer / 2) {
           setTimeColor("red");
         }
-
         if (prevTime === 0) {
-          clearInterval(timer);
+          clearInterval(currentTimer);
           Swal.fire({
-            title: `Oh ohhhhh. You\'re out of time!`,
+            title: `Oh ohhhhh. You're out of time!`,
             icon: "error",
             confirmButtonText: "OK",
           }).then(() => {
@@ -32,19 +27,21 @@ function Timer({ submitQuiz }) {
           return prevTime - increment;
         }
       });
-    }, 1000);
+    };
+
+    const currentTimer = setInterval(getTime, 1000);
 
     return () => {
-      clearInterval(timer);
+      clearInterval(currentTimer);
     };
   }, []);
 
   return (
     <div style={{ width: 200, height: 200 }}>
       <CircularProgressbar
-        value={timeRemaining}
-        maxValue={initialTime}
-        text={`${timeRemaining}s`}
+        value={clockTime}
+        maxValue={timer}
+        text={`${clockTime}s`}
         styles={buildStyles({
           textColor: timerColor,
           // Path color

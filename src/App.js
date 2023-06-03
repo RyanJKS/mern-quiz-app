@@ -6,6 +6,7 @@ import OverviewDialog from "./components/OverviewDialog";
 import RoutingPaths from "./pages/RoutingPaths";
 
 function App() {
+  // center overview dialog on screen
   const CenterStyles = {
     display: "flex",
     flexDirection: "column",

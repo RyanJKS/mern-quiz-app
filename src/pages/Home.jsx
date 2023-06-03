@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../config/apiConfig";
 import { AuthContext } from "../context/AuthContext";
 import Stack from "@mui/material/Stack";
@@ -12,21 +12,18 @@ import Swal from "sweetalert2";
 import { deleteAccount } from "../helper/Account";
 
 function Home() {
-  const { accessToken, setQuestions, setIsLoading, leaderboardData } =
+  const { accessToken, currentUser, setQuestions, setIsLoading } =
     useContext(AuthContext);
   const navigate = useNavigate();
-
-  const location = useLocation();
-  const currentUserId = location.pathname.split("/")[2];
 
   const getQuestions = async () => {
     try {
       setIsLoading(true);
-      let responses = await axiosInstance.get("/api/getquiz");
-      setQuestions(responses.data.questions.slice(0, 10));
-      // setQuestions(SampleQuestion.slice(0, 10));
+      // let responses = await axiosInstance.get("/api/getquiz");
+      // setQuestions(responses.data.questions.slice(0, 10));
+      setQuestions(SampleQuestion.slice(0, 10));
       setIsLoading(false);
-      navigate(`/game-session/${currentUserId}`);
+      navigate(`/game-session/${currentUser.userID}`);
     } catch (error) {
       console.error(error);
     }
@@ -59,14 +56,14 @@ function Home() {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          deleteAccount(accessToken, currentUserId);
-          swalWithBootstrapButtons.fire(
-            "Deleted!",
-            "Your stats have been deleted.",
-            "success"
-          );
+          deleteAccount(accessToken, currentUser.userID);
           localStorage.removeItem("AuthorisationJWToken");
-          navigate("/");
+          swalWithBootstrapButtons
+            .fire("Deleted!", "Your stats have been deleted.", "success")
+            .then(() => {
+              navigate("/");
+              window.location.reload();
+            });
         } else if (
           /* Read more about handling dismissals below */
           result.dismiss === Swal.DismissReason.cancel
@@ -90,14 +87,23 @@ function Home() {
     >
       {/*3 BUTTONS FOR HANDLE USER LOCATION */}
       <Grid item xs={12} lg={12}>
-        <Stack direction="row" justifyContent="center" spacing={2}>
-          <Button variant="contained" onClick={getQuestions}>
+        <Stack
+          direction="row"
+          justifyContent="center"
+          padding="0 2rem 0 2rem"
+          spacing={2}
+        >
+          <Button variant="contained" size="medium" onClick={getQuestions}>
             Start Game
           </Button>
-          <Button variant="contained" onClick={handleLogOut}>
+          <Button variant="contained" size="medium" onClick={handleLogOut}>
             Log Out
           </Button>
-          <Button variant="contained" onClick={handleDeleteAccount}>
+          <Button
+            variant="contained"
+            size="medium"
+            onClick={handleDeleteAccount}
+          >
             Delete Account
           </Button>
         </Stack>
@@ -112,7 +118,7 @@ function Home() {
         justifyContent="center"
         alignItems="flex-start"
       >
-        <LeadershipBoard data={leaderboardData} />
+        <LeadershipBoard />
       </Grid>
 
       {/*DASHBOARD or USER ACCESS FORM (LOGIN/REGISTRATION) */}
