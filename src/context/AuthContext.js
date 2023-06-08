@@ -36,12 +36,13 @@ export const AuthContextProvider = (props) => {
       } catch (err) {
         if (axios.isCancel(err)) {
           setCurrentUser(null);
-          console.log("Request canceled:", err.message);
+          console.log("Request cancelled:", err.message);
         } else {
           console.log("Error:", err.message);
         }
       }
     };
+    // run function only when access token is present
     if (accessToken) {
       checkUser();
     } else {
@@ -49,34 +50,9 @@ export const AuthContextProvider = (props) => {
     }
     return () => {
       // Cleanup function to cancel the request
-      cancelToken.cancel("Request canceled due to component unmount");
+      cancelToken.cancel("Request cancelled due to component unmount");
     };
   }, [accessToken]);
-
-  // const userAuthorised = async () => {
-  //   if (accessToken !== null) {
-  //     try {
-  //       const responses = await axiosInstance.get(`/user/stats/current`, {
-  //         headers: { authorisation: `${accessToken}` },
-  //       });
-
-  //       if (responses.status !== "fail") {
-  //         setCurrentUser(responses.data[0]);
-  //         navigate(`/home/${responses.data[0].userID}`);
-  //       } else {
-  //         navigate("/");
-  //       }
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   } else {
-  //     navigate("/");
-  //   }
-  // };
-  // // run on every render
-  // useEffect(() => {
-  //   userAuthorised();
-  // }, [accessToken]);
 
   return (
     <AuthContext.Provider
