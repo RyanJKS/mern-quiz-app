@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export const axiosInstance = axios.create({
-  baseURL: "https://mern-quiz-backend.vercel.app/",
+  baseURL: process.env.RACT_APP_BACKEND_URL,
 });
