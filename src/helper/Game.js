@@ -19,6 +19,7 @@ const updateDatabase = async (
     ),
     timePerGame: timeTaken,
   };
+
   try {
     //AXIOS PUT FORMAT PUT.{URL, {BODY}, {HEADERS}}
     let responses = await axiosInstance.put(
@@ -30,7 +31,7 @@ const updateDatabase = async (
     );
     if (responses.status === 200) {
       return true;
-    } else return false;
+    }
   } catch (error) {
     console.error(error);
     return false;
@@ -66,7 +67,9 @@ export function Submit(accessToken, currentUser, questions, timeTaken) {
     `Scoreboard\nCorrect answers : ${correctCount}\nWrong answers : ${wrongCount}`
   ).then(() => {
     if (updateDatabase(accessToken, currentUser, correctCount, timeTaken)) {
-      window.location.reload();
+      Swal.fire("Updated database successfully!", "", "success").then(() => {
+        window.location.reload();
+      });
     } else {
       alert(
         "Something went wrong when updating the database. Please try again later"

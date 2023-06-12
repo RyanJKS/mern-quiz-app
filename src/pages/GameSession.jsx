@@ -27,6 +27,11 @@ export default function GameSession() {
     } else {
       timeTaken = timer - clockTime;
     }
+    // if (Submit(accessToken, currentUser, questions, timeTaken)) {
+    //   navigate(`/home/${currentUser.userID}`);
+    // } else {
+    //   navigate(`/home/${currentUser.userID}`);
+    // }
     Submit(accessToken, currentUser, questions, timeTaken);
     navigate(`/home/${currentUser.userID}`);
   };

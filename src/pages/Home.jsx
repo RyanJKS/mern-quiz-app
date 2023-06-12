@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { axiosInstance } from "../config/apiConfig";
 import { AuthContext } from "../context/AuthContext";
 import Stack from "@mui/material/Stack";
 import { Button } from "@mui/material";
