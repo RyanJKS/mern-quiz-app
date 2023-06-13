@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
 import { MDBTabsPane, MDBBtn, MDBInput } from "mdb-react-ui-kit";
-import { axiosInstance } from "../../config/apiConfig";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { SignIn } from "../../helper/Account";
 
 function Login({ currentTab, switchTab }) {
   const navigate = useNavigate();
@@ -10,20 +10,14 @@ function Login({ currentTab, switchTab }) {
   const signInUsername = useRef(null);
   const signInPassword = useRef(null);
 
-  //LOGIN USER
-  const signIn = async () => {
-    try {
-      let responses = await axiosInstance.post("/user/authentication/login", {
-        username: signInUsername.current.value,
-        password: signInPassword.current.value,
-      });
-
-      if (responses.status === 200) {
-        const response = responses.data;
-        localStorage.setItem("AuthorisationJWToken", response.token);
-        navigate("/home/" + response.data._id);
-      }
-    } catch (error) {
+  const handleSignIn = () => {
+    let result = SignIn(
+      signInUsername.current.value,
+      signInPassword.current.value
+    );
+    if (result !== "Error") {
+      navigate("/home/" + result);
+    } else {
       Swal.fire("Oops...!", "Wrong Credentials.", "error");
     }
   };
@@ -42,7 +36,7 @@ function Login({ currentTab, switchTab }) {
         ref={signInPassword}
       />
 
-      <MDBBtn className="mb-4 w-100" onClick={signIn}>
+      <MDBBtn className="mb-4 w-100" onClick={handleSignIn}>
         Sign in
       </MDBBtn>
       <p className="text-center">

@@ -1,24 +1,13 @@
 import React, { useRef } from "react";
 import { MDBTabsPane, MDBBtn, MDBInput } from "mdb-react-ui-kit";
-import { axiosInstance } from "../../config/apiConfig";
-import { InitialUserStats } from "../../data/InitialUserStats";
+import { SignIn, SignUp } from "../../helper/Account";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 function Registration({ currentTab, switchTab }) {
+  const navigate = useNavigate();
   const signUpUsername = useRef(null);
   const signUpPassword = useRef(null);
-
-  // CREATE COLLECTION WITH INTRO DATA ON REGISTRATION
-  const createUserStats = async (userID, username) => {
-    try {
-      await axiosInstance.post(
-        "/user/stats/register",
-        InitialUserStats(userID, username)
-      );
-    } catch (error) {
-      alert(error.message);
-    }
-  };
 
   //CREATE NEW USER
   const signUp = async () => {
@@ -27,22 +16,23 @@ function Registration({ currentTab, switchTab }) {
       password: signUpPassword.current.value,
     };
 
-    try {
-      let responses = await axiosInstance.post(
-        "/user/authentication/register",
-        userInput
-      );
-      if (responses.status === 200) {
-        Swal.fire(
-          "Congratulations!",
-          "You have successfully signed up. Please log in to play the game.",
-          "success"
-        ).then(() => {
-          createUserStats(responses.data._id, responses.data.username);
-          switchTab("tab1");
-        });
-      }
-    } catch (error) {
+    let result = SignUp(userInput);
+
+    if (result !== false) {
+      Swal.fire(
+        "Congratulations!",
+        "You have successfully signed up. Enojy the game.",
+        "success"
+      ).then(() => {
+        let result = SignIn(
+          signUpUsername.current.value,
+          signUpPassword.current.value
+        );
+        if (result !== "Error") {
+          navigate("/home/" + result);
+        }
+      });
+    } else {
       Swal.fire(
         "Oops...!",
         "You already have an account. Please login to continue.",
@@ -50,6 +40,26 @@ function Registration({ currentTab, switchTab }) {
       );
     }
   };
+
+  const handleDemoSignIn = () => {
+    let result = SignIn("demo", process.env.REACT_APP_DEMO_PASSWORD);
+    if (result !== "Error") {
+      Swal.fire(
+        "Congratulations!",
+        "You have successfully signed in using the demo account. Enjoy the game.",
+        "success"
+      ).then(() => {
+        navigate("/home/" + result);
+      });
+    } else {
+      Swal.fire(
+        "Oops...!",
+        "There's an error accessing through the demo account. Please wait a few seconds for the database to load up",
+        "error"
+      );
+    }
+  };
+
   return (
     <MDBTabsPane show={currentTab === "tab2"}>
       <MDBInput
@@ -58,16 +68,19 @@ function Registration({ currentTab, switchTab }) {
         type="text"
         ref={signUpUsername}
       />
-
       <MDBInput
         wrapperClass="mb-4"
         label="Password"
         type="password"
         ref={signUpPassword}
       />
-
       <MDBBtn className="mb-4 w-100" onClick={signUp}>
         Sign up
+      </MDBBtn>
+      <p style={{ textAlign: "center" }}>or:</p>
+
+      <MDBBtn className="mb-4 w-100" onClick={handleDemoSignIn}>
+        Click here to use demo account
       </MDBBtn>
       <p className="text-center">
         Already a member?{" "}
