@@ -27,7 +27,7 @@
     <br />
     <a href="https://mern-quiz-app-nine.vercel.app/">View Demo</a>
     ·
-    <a href="https://github.com/RyanJKS/mern-quiz-app-backend">View Backend Code</a>
+    <a href="https://github.com/RyanJKS/mern-quiz-backend">View Backend Code</a>
     ·
     <a href="https://jhelan.dev/">View Portfolio Website</a>
     ·
@@ -191,16 +191,16 @@ Project Link: [https://github.com/RyanJKS/mern-quiz-app-app](https://github.com/
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-[contributors-shield]: https://img.shields.io/github/contributors/RyanJKS/mern-quiz-app-app.svg?style=for-the-badge
-[contributors-url]: https://github.com/RyanJKS/mern-quiz-app-app/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/RyanJKS/mern-quiz-app-app.svg?style=for-the-badge
-[forks-url]: https://github.com/RyanJKS/mern-quiz-app-app/network/members
-[stars-shield]: https://img.shields.io/github/stars/RyanJKS/mern-quiz-app-app.svg?style=for-the-badge
-[stars-url]: https://github.com/RyanJKS/mern-quiz-app-app/stargazers
-[issues-shield]: https://img.shields.io/github/issues/RyanJKS/mern-quiz-app-app.svg?style=for-the-badge
-[issues-url]: https://github.com/RyanJKS/mern-quiz-app-app/issues
-[license-shield]: https://img.shields.io/github/license/RyanJKS/mern-quiz-app-app.svg?style=for-the-badge
-[license-url]: https://github.com/RyanJKS/mern-quiz-app-app/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/RyanJKS/mern-quiz-app.svg?style=for-the-badge
+[contributors-url]: https://github.com/RyanJKS/mern-quiz-app/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/RyanJKS/mern-quiz-app.svg?style=for-the-badge
+[forks-url]: https://github.com/RyanJKS/mern-quiz-app/network/members
+[stars-shield]: https://img.shields.io/github/stars/RyanJKS/mern-quiz-app.svg?style=for-the-badge
+[stars-url]: https://github.com/RyanJKS/mern-quiz-app/stargazers
+[issues-shield]: https://img.shields.io/github/issues/RyanJKS/mern-quiz-app.svg?style=for-the-badge
+[issues-url]: https://github.com/RyanJKS/mern-quiz-app/issues
+[license-shield]: https://img.shields.io/github/license/RyanJKS/mern-quiz-app.svg?style=for-the-badge
+[license-url]: https://github.com/RyanJKS/mern-quiz-app/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/jhelan-suggun-jks7n99/
 [product-screenshot]: images/screenshot.png
