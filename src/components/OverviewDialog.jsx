@@ -42,11 +42,11 @@ function OverviewDialog() {
                 lineHeight: 1.5,
               }}
             >
-              Welcome to the Quiz Game!
+              Welcome to the Quiz Master!
               <br />
-              Please register or login to our MongoDb database to play the game.
-              Get your personalised performance dashboard and get your ranking
-              on the leaderboard.
+              Register/Login or use our demo account to play the game. Get your
+              personalised performance dashboard and get your ranking on the
+              leaderboard.
               <br />
               Dont worry, your password will be encrypted using{" "}
               <b style={{ color: "rgba(0,255,255,0.7)" }}>bcrypt</b> and you
@@ -58,7 +58,7 @@ function OverviewDialog() {
               Rules & Tips:
               <br />
               <ul>
-                <li>Each Game has 20 Quizzes.</li>
+                <li>Each Game has 10 Quizzes.</li>
                 <li>Each Quiz is worth 1 point if answered correctly.</li>
                 <li>
                   Earn as many points as you can to get onto the leaderboard.
