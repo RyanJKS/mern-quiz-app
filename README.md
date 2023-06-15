@@ -46,6 +46,7 @@
       <ul>
         <li><a href="#built-with">Built With</a></li>
         <li><a href="#extra-packages">Extra Packages</a></li>
+        <li><a href="#functionalities">Functionalities</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
@@ -95,10 +96,27 @@ QuizMaster is a fully responsive React app that will captivate your attention an
 - REST API (ASE Quiz) - Click <a href="https://rapidapi.com/AhmedSemih/api/ases-quiz-api1/"
                 target="_blank"
                 rel="noreferrer"> here</a> for Quiz Questions Documentation
+- Bcrypt (Password Hashing)
+- Jason Web Token (JWT Authentication)
+- Axios
+- Express
+- Cors
 - React Icons
 - Material UI Icons
 - React ChartJs 2
 - Vercel (Deployment)
+
+### Functionalities
+
+- Users will have a personalized dashboard displaying charts and statistics.
+- Users can register a unique username and password to access the game.
+- Users should solve 10 quizzes in each game to test their knowledge.
+- Users will be able to track their game completion time and number of correct answers.
+- Users can compete on the leaderboard to showcase their quiz-solving skills.
+- Users will have their account secured with bcrypt-hashed passwords.
+- Users will have their intellectual property protected through JWT token authentication.
+- Users should explore the variety of quiz categories available for an engaging experience.
+- Users can view their progress and improvement over time through the line graph on the dashboard.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
