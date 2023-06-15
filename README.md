@@ -97,11 +97,10 @@ QuizMaster is a fully responsive React app that will captivate your attention an
                 target="_blank"
                 rel="noreferrer"> here</a> for Quiz Questions Documentation
 - Bcrypt (Password Hashing)
-- Jason Web Token (JWT Authentication)
+- JSON Web Token (JWT Authentication)
 - Axios
 - Express
 - Cors
-- React Icons
 - Material UI Icons
 - React ChartJs 2
 - Vercel (Deployment)
