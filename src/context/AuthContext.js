@@ -16,6 +16,43 @@ export const AuthContextProvider = (props) => {
   // check if user is logged in and has a jwt token.
   //if logged in, auto redirect to home page.
   // run on every render
+  // useEffect(() => {
+  //   const cancelToken = axios.CancelToken.source();
+
+  //   const checkUser = async () => {
+  //     try {
+  //       const responses = await axiosInstance.get(`/user/stats/current`, {
+  //         headers: { authorisation: `${accessToken}` },
+  //         cancelToken: cancelToken.token,
+  //       });
+
+  //       if (responses.status === 200) {
+  //         setCurrentUser(responses.data[0]);
+  //         navigate(`/home/${responses.data[0].userID}`);
+  //       } else {
+  //         setCurrentUser(null);
+  //         navigate("/");
+  //       }
+  //     } catch (err) {
+  //       if (axios.isCancel(err)) {
+  //         setCurrentUser(null);
+  //         console.log("Request cancelled:", err.message);
+  //       } else {
+  //         console.log("Error:", err.message);
+  //       }
+  //     }
+  //   };
+  //   // run function only when access token is present
+  //   if (accessToken) {
+  //     checkUser();
+  //   } else {
+  //     navigate("/");
+  //   }
+  //   return () => {
+  //     // Cleanup function to cancel the request
+  //     cancelToken.cancel("Request cancelled due to component unmount");
+  //   };
+  // }, [accessToken]);
   useEffect(() => {
     const cancelToken = axios.CancelToken.source();
 

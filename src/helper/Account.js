@@ -8,11 +8,13 @@ export const SignIn = async (username, password) => {
       password: password,
     });
 
-    if (responses.status === 200) {
-      const response = responses.data;
-      localStorage.setItem("AuthorisationJWToken", response.token);
+    if (responses.data) {
+      const resp = responses.data;
+      localStorage.setItem("AuthorisationJWToken", resp.token);
 
-      return response.data._id;
+      return resp.data._id;
+    } else {
+      return "Error";
     }
   } catch (error) {
     return "Error";

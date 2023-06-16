@@ -16,22 +16,27 @@ function Registration({ currentTab, switchTab }) {
       password: signUpPassword.current.value,
     };
 
-    let result = SignUp(userInput);
+    let results = await SignUp(userInput);
 
-    if (result !== false) {
-      Swal.fire(
-        "Congratulations!",
-        "You have successfully signed up. Enojy the game.",
-        "success"
-      ).then(() => {
-        let result = SignIn(
-          signUpUsername.current.value,
-          signUpPassword.current.value
+    if (results !== false) {
+      let result = await SignIn(
+        signUpUsername.current.value,
+        signUpPassword.current.value
+      );
+      if (result !== "Error") {
+        Swal.fire(
+          "Congratulations!",
+          "You have successfully signed up. Enjoy the game.",
+          "success"
         );
-        if (result !== "Error") {
-          navigate("/home/" + result);
-        }
-      });
+        navigate("/home/" + result);
+      } else if (result === "Error") {
+        Swal.fire(
+          "Oops...!",
+          "An error occured when trying to log in. Please try loggin in manually.",
+          "error"
+        );
+      }
     } else {
       Swal.fire(
         "Oops...!",

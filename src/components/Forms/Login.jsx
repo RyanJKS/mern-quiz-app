@@ -10,14 +10,14 @@ function Login({ currentTab, switchTab }) {
   const signInUsername = useRef(null);
   const signInPassword = useRef(null);
 
-  const handleSignIn = () => {
-    let result = SignIn(
+  const handleSignIn = async () => {
+    let result = await SignIn(
       signInUsername.current.value,
       signInPassword.current.value
     );
     if (result !== "Error") {
       navigate("/home/" + result);
-    } else {
+    } else if (result === "Error") {
       Swal.fire("Oops...!", "Wrong Credentials.", "error");
     }
   };
